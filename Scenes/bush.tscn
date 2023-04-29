@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://nsm4dfksuaud"]
+
+[ext_resource type="Shader" uid="uid://i1ql62awv3rp" path="res://Shaders/Transparency.tres" id="1_y52pm"]
+[ext_resource type="Texture2D" uid="uid://bh3bi4p1112" path="res://Textures/background and trees stones.png" id="2_bp114"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n457v"]
+shader = ExtResource("1_y52pm")
+shader_parameter/from_color = Color(1, 1, 1, 1)
+shader_parameter/to_color = Color(0, 0, 0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_juqw2"]
+radius = 12.0416
+
+[node name="Bush" type="StaticBody2D"]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_n457v")
+texture = ExtResource("2_bp114")
+region_enabled = true
+region_rect = Rect2(355, 15, 42, 44)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_juqw2")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d218hbecyhd42"]
+
+[ext_resource type="Material" uid="uid://cubgrjhgpy0b2" path="res://Shaders/TransparencyShader.tres" id="1_0x7wl"]
+[ext_resource type="Texture2D" uid="uid://brvx0l4bi1fus" path="res://Textures/ground buildings tree.png" id="1_s1xc4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6aull"]
+size = Vector2(11, 79)
+
+[node name="Fence" type="StaticBody2D"]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_0x7wl")
+texture = ExtResource("1_s1xc4")
+region_enabled = true
+region_rect = Rect2(554.074, 503.622, 11.7302, 80.1964)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.833333, -0.166664)
+shape = SubResource("RectangleShape2D_6aull")

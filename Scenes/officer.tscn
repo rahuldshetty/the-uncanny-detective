@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8ax5eanhl6a5"]
+
+[ext_resource type="Material" uid="uid://cubgrjhgpy0b2" path="res://Shaders/TransparencyShader.tres" id="1_5jwbe"]
+[ext_resource type="Texture2D" uid="uid://dge8qt8eem2sp" path="res://Textures/people cars.png" id="1_wyvm1"]
+[ext_resource type="Script" path="res://Scripts/officer.gd" id="1_y84q0"]
+[ext_resource type="FontVariation" uid="uid://cwb70pjtjp6qw" path="res://Fonts/police_car.tres" id="3_wq0wu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14xax"]
+size = Vector2(27, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ryr6l"]
+radius = 19.6667
+
+[node name="Officer" type="StaticBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_y84q0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_5jwbe")
+texture = ExtResource("1_wyvm1")
+region_enabled = true
+region_rect = Rect2(22.7703, 35.576, 27.6328, 14.5522)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_14xax")
+
+[node name="OfficerVision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OfficerVision"]
+position = Vector2(-0.333333, 11)
+shape = SubResource("CircleShape2D_ryr6l")
+
+[node name="OfficerMessage" type="Label" parent="OfficerVision"]
+visible = false
+z_index = 100
+layout_direction = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.5
+offset_top = -8.0
+offset_right = 26.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_wq0wu")
+theme_override_font_sizes/font_size = 16
+text = "(E) Talk"
+
+[connection signal="body_entered" from="OfficerVision" to="." method="_on_officer_vision_body_entered"]
+[connection signal="body_exited" from="OfficerVision" to="." method="_on_officer_vision_body_exited"]

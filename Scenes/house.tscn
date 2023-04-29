@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2iwqrrpuvftt"]
+
+[ext_resource type="Texture2D" uid="uid://d02n72a1b2edl" path="res://Textures/pngwing.com (1).png" id="1_86uxf"]
+
+[node name="House" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_86uxf")
+region_enabled = true
+region_rect = Rect2(64, 41, 772, 570)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1057, -592, -1054, -494, -1035, -481, -1048, -294, -1060, -250, -1114, -237, -1121, -202, -987, -205, -984, -469, -864, -472, -968, -142, -968, -104, -857, 236, -978, 239, -984, 14, -1041, 4, -1051, 52, -1038, 87, -1035, 268, -1070, 328, -1070, 382, -1000, 373, -984, 309, -778, 535, -629, 531, -635, 547, -625, 731, -324, 804, 76, 719, 86, 531, 695, 522, 692, 528, 790, 614, 914, 538, 743, 284, 975, 290, 956, 217, 848, 217, 819, 74, 889, 55, 892, -326, 825, -342, 1044, -335, 965, -592, 844, -548, 756, -542, 670, -726, -778, -735, -826, -558, -975, -535, -1000, -602)

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cubgrjhgpy0b2"]
+
+[ext_resource type="Shader" uid="uid://i1ql62awv3rp" path="res://Shaders/Transparency.tres" id="1_v0moq"]
+
+[resource]
+shader = ExtResource("1_v0moq")
+shader_parameter/from_color = Color(1, 1, 1, 1)
+shader_parameter/to_color = Color(0, 0, 0, 0)

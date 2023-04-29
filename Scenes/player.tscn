@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://etg1l1s8n71b"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_j6x0w"]
+[ext_resource type="Texture2D" uid="uid://dge8qt8eem2sp" path="res://Textures/people cars.png" id="1_ools8"]
+[ext_resource type="Material" uid="uid://cubgrjhgpy0b2" path="res://Shaders/TransparencyShader.tres" id="1_qowvh"]
+[ext_resource type="AudioStream" uid="uid://u3boosdsvhev" path="res://Sounds/mixkit-footsteps-in-the-forest-ground-1230.wav" id="4_c5bqq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmp3u"]
+size = Vector2(25, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_sb2tp"]
+cull_mode = 2
+polygon = PackedVector2Array(-1.33333, -12.3333, 7.66667, -2, 7, 4, -0.333333, 12.6667, -6, 12.6667, -8, -9, -5.66667, -12.3333)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 10
+scale = Vector2(3, 3)
+script = ExtResource("1_j6x0w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_qowvh")
+rotation = 4.71239
+texture = ExtResource("1_ools8")
+region_enabled = true
+region_rect = Rect2(25.6667, 68.893, 25.9176, 15.6297)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+rotation = 4.71239
+shape = SubResource("RectangleShape2D_tmp3u")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_sb2tp")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="FootstepSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_c5bqq")

@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://qes2eelv2ekk"]
+
+[ext_resource type="Script" path="res://Scripts/police_car.gd" id="1_bb2w1"]
+[ext_resource type="Texture2D" uid="uid://dge8qt8eem2sp" path="res://Textures/people cars.png" id="1_qxxcg"]
+[ext_resource type="AudioStream" uid="uid://cec6xj1oms5k1" path="res://Sounds/PoliceSirenVariou TE2027601.mp3" id="2_8uuoj"]
+[ext_resource type="AudioStream" uid="uid://cus43o5nbx004" path="res://Sounds/Police Radio Chatter Sound Effect [Extended].mp3" id="3_bqafw"]
+[ext_resource type="FontVariation" uid="uid://cwb70pjtjp6qw" path="res://Fonts/police_car.tres" id="4_61c5a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8p1t"]
+size = Vector2(51.6667, 133.667)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4kowb"]
+polygon = PackedVector2Array(-26.3333, -68, 25, -68, 24.3333, 65.3333, -26, 65.6667)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7s0kk"]
+radius = 38.3464
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pi80c"]
+size = Vector2(118.667, 34.3333)
+
+[node name="PoliceCar" type="StaticBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_bb2w1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qxxcg")
+region_enabled = true
+region_rect = Rect2(300.495, 13.4808, 50.1206, 133.398)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.500001, -0.5)
+shape = SubResource("RectangleShape2D_c8p1t")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4kowb")
+
+[node name="Siren" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8uuoj")
+volume_db = -4.059
+pitch_scale = 0.8
+max_distance = 1500.0
+
+[node name="Area2D" type="Area2D" parent="Siren"]
+position = Vector2(0.333333, -65.6667)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Siren/Area2D"]
+position = Vector2(-1, -11.3333)
+shape = SubResource("CircleShape2D_7s0kk")
+
+[node name="SirenMessage" type="Label" parent="Siren/Area2D"]
+z_index = 100
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -16.0
+offset_right = 51.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_61c5a")
+theme_override_font_sizes/font_size = 16
+text = "(E) Turn on Siren"
+
+[node name="Radio" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(21.6667, -2.66667)
+stream = ExtResource("3_bqafw")
+volume_db = -3.0
+autoplay = true
+attenuation = 1.93187
+
+[node name="RadioArea" type="Area2D" parent="Radio"]
+position = Vector2(-19.3333, -4)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radio/RadioArea"]
+position = Vector2(-0.666666, -2.16667)
+shape = SubResource("RectangleShape2D_pi80c")
+
+[node name="RadioMessage" type="Label" parent="Radio/RadioArea"]
+z_index = 100
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -16.0
+offset_right = 51.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_61c5a")
+theme_override_font_sizes/font_size = 16
+text = "(E) Turn on Police Radio"
+
+[connection signal="body_entered" from="Siren/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Siren/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Radio/RadioArea" to="." method="_on_radio_area_body_entered"]
+[connection signal="body_exited" from="Radio/RadioArea" to="." method="_on_radio_area_body_exited"]
