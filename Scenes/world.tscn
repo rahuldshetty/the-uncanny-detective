@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://ddm21b3wvenmf"]
+[gd_scene load_steps=19 format=3 uid="uid://ddm21b3wvenmf"]
 
 [ext_resource type="PackedScene" uid="uid://etg1l1s8n71b" path="res://Scenes/player.tscn" id="1_55575"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_d3c16"]
 [ext_resource type="Texture2D" uid="uid://cobytj0a7ts3g" path="res://Textures/2d_lights_and_shadows_neutral_point_light.webp" id="1_jc3hu"]
 [ext_resource type="PackedScene" uid="uid://b8ax5eanhl6a5" path="res://Scenes/officer.tscn" id="2_23v0f"]
 [ext_resource type="PackedScene" uid="uid://qes2eelv2ekk" path="res://Scenes/police_car.tscn" id="3_gn4qa"]
@@ -54,7 +55,14 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_nb51e")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydq7i"]
+size = Vector2(730, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g65nq"]
+size = Vector2(736, 112)
+
 [node name="World" type="Node2D"]
+script = ExtResource("1_d3c16")
 
 [node name="Player" parent="." instance=ExtResource("1_55575")]
 
@@ -77,14 +85,17 @@ already_said_prompt = "Games afoot detective."
 [node name="Officer" parent="Officers2" instance=ExtResource("2_23v0f")]
 position = Vector2(-170, 772)
 rotation = 0.0725263
+talkable = false
 
 [node name="Officer2" parent="Officers2" instance=ExtResource("2_23v0f")]
 position = Vector2(19, 775)
 rotation = -0.026802
+talkable = false
 
 [node name="Officer3" parent="Officers2" instance=ExtResource("2_23v0f")]
 position = Vector2(213, 775)
 rotation = -0.026802
+talkable = false
 
 [node name="Cars" type="Node2D" parent="."]
 
@@ -360,8 +371,28 @@ scale = Vector2(0.622027, 0.622027)
 
 [node name="DialogSystem" parent="." instance=ExtResource("13_x67gp")]
 
+[node name="LeaveArea" type="Node2D" parent="."]
+position = Vector2(9, 804)
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="LeaveArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeaveArea/Area2D"]
+position = Vector2(24, 28)
+shape = SubResource("RectangleShape2D_ydq7i")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LeaveArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeaveArea/StaticBody2D"]
+position = Vector2(22, 70)
+shape = SubResource("RectangleShape2D_g65nq")
+
+[connection signal="dialogue" from="." to="DialogSystem" method="_on_world_dialogue"]
 [connection signal="interact" from="Player" to="Officers1/Officer" method="_on_player_interact"]
 [connection signal="interact" from="Player" to="Officers1/Officer2" method="_on_player_interact"]
 [connection signal="interact" from="Player" to="Cars/PoliceCar" method="_on_player_interact"]
+[connection signal="interact" from="Player" to="House" method="_on_player_interact"]
 [connection signal="dialogue" from="Officers1/Officer" to="DialogSystem" method="_on_officer_dialogue"]
 [connection signal="dialogue" from="Officers1/Officer2" to="DialogSystem" method="_on_officer_dialogue"]
+[connection signal="body_entered" from="LeaveArea/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="LeaveArea/Area2D" to="." method="_on_area_2d_body_exited"]

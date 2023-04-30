@@ -22,3 +22,7 @@ func _on_officer_dialogue(name, message):
 
 func _on_officer_2_dialogue(name, message):
 	handle_message(name, message)
+
+
+func _on_world_dialogue(name, message):
+	handle_message(name, message)
